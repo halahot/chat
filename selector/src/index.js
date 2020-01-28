@@ -100,7 +100,7 @@ async function start(){
             let res = await slave.oneOrNone(sql_get_account, [req.token]);
             return {
                 ok: true,
-                data: res.check_token,
+                data: res,
             }
         }
         catch(e){

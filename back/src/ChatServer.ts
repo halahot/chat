@@ -10,7 +10,7 @@ const HEMERA = require('nats-hemera');
 const cors = require('cors');
 
 const hemera = new HEMERA(nats, {
-  logLevel: 'info',
+  logLevel: 'fatal',
 })
 
 export class ChatServer {

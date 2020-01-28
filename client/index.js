@@ -125,7 +125,7 @@ async function login(login, password){
 }
 
 (async () =>{
-    let res = await get_messages("123", "Arcusterr");
+    let res = await get_account("123", "Arcusterr");
     console.log(res);
   }
 )()
