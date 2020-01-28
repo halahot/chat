@@ -6,7 +6,7 @@ CREATE TABLE registrator.users(
     password VARCHAR(60),
     salt VARCHAR(29),
     token text,
-    full_name TEXT,
+    full_name TEXT
 );
 
 
@@ -86,14 +86,14 @@ CREATE TABLE taskworker.message(
     sender_id integer REFERENCES registrator.users(id),
     to_id integer REFERENCES registrator.users(id),
     msg TEXT,
-    date timestamp DEFAULT NOW(),
+    date timestamp DEFAULT NOW()
 );
 
 
 CREATE TABLE taskworker.friend(
     id SERIAL PRIMARY KEY,
     user_id integer REFERENCES registrator.users(id),
-    friend_id integer REFERENCES registrator.users(id),
+    friend_id integer REFERENCES registrator.users(id)
 )
 
 
