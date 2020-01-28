@@ -88,7 +88,7 @@ export class ChatServer {
       socket.on(ChatEvent.MESSAGE, async (m: ChatMessage) => {
         let user = this.sockets_token.get(socket.id);
 
-        await hemera.act({
+        let res = await hemera.act({
           topic: 'taskworker',
           cmd: 'save_message',
           token: user.token,
@@ -100,6 +100,8 @@ export class ChatServer {
         if(socket.has(m.to)){
           this.io.to(this.login_sockets.get(m.to)).emit(ChatEvent.MESSAGE, {...m, from: user.login});
         }
+
+        this.io.to(socket.id).emit("sended_message", res.data);
       });
 
 
