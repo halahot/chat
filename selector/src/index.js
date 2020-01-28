@@ -8,6 +8,7 @@ const {
 
 const {
     sql_get_messages,
+    sql_get_users,
 } = require('./db/sql');
 
 
@@ -51,7 +52,7 @@ async function start(){
     },
     async (req) =>{
         try{
-            let res = await slave.manyOrNone(sql_get_messages, [req.token]);
+            let res = await slave.manyOrNone(sql_get_users, [req.token]);
             return {
                 ok: true,
                 data: res,
@@ -72,10 +73,10 @@ async function start(){
     },
     async (req) =>{
         try{
-            let res = await slave.manyOrNone(sql_get_messages, [req.token]);
+            let res = await slave.one(sql_check_token, [req.token]);
             return {
                 ok: true,
-                data: res,
+                data: res.check_token,
             }
         }
         catch(e){

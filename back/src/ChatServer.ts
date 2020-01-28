@@ -101,6 +101,19 @@ export class ChatServer {
       });
 
 
+      socket.on(ChatEvent.CHECK_TOKEN, async () =>{
+        let token = this.sockets_token.get(socket.id);
+        
+        let res = await this.hemera.act({
+          topic: 'selector',
+          cmd: 'check_token',
+          token: token,
+        });
+
+        return res;
+      });
+
+
       socket.on(ChatEvent.ADD_FRIEND, async (msg: any) =>{
         let user = this.sockets_token.get(socket.id);
 

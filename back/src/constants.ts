@@ -10,4 +10,5 @@ export enum ChatEvent {
     DELETE_FRIEND = 'delete_friend',
     GET_MESSAGES = 'get_messages',
     GET_USERS = 'get_users',
+    CHECK_TOKEN = 'check_token',
 }

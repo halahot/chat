@@ -47,6 +47,52 @@ async function start(){
             }
         }
     });
+
+    hemera.add({
+        topic: 'taskworker',
+        cmd: "add_friend",
+        token: Joi.string().required(),
+        login: Joi.string().required(),
+        message: Joi.string().required(),
+    },
+    async (req) =>{
+        try{
+            let res = await master.none(sql_send_message, [req.token, req.login, req.message]);
+            return {
+                ok: true,
+                data: res,
+            }
+        }
+        catch(e){
+            return {
+                ok: false,
+                data: e,
+            }
+        }
+    });
+
+    hemera.add({
+        topic: 'taskworker',
+        cmd: "delete_friend",
+        token: Joi.string().required(),
+        login: Joi.string().required(),
+        message: Joi.string().required(),
+    },
+    async (req) =>{
+        try{
+            let res = await master.none(sql_send_message, [req.token, req.login, req.message]);
+            return {
+                ok: true,
+                data: res,
+            }
+        }
+        catch(e){
+            return {
+                ok: false,
+                data: e,
+            }
+        }
+    });
 }
 
 (async () =>{
