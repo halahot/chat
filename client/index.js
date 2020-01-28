@@ -1,27 +1,19 @@
 const io = require("socket.io-client");
 
-const port = 9099;
+const port = 5589;
 
-let socket = io.connect(`http://localhost:${port}?type=user`);
+let socket = io.connect(`http://localhost:${port}?type=user&login=123&token=321`);
 
-socket.on("message", (m) =>{
-  console.log(m);
-});
-
-socket.on("helper_disconnect", (m) =>{
-  console.log(`Disconnected helper`);
-});
-
-socket.on("helper_connect", (m) =>{
-  console.log(`Connected`);
-})
+// socket.on("message", (m) =>{
+//   console.log(m);
+// });
 
 
 setTimeout(() =>{
-  socket.emit('message_to_help', {
+  socket.emit('message', {
     from: '1111',
     message: "Ghbdtn",
     name: "Yan",
   })
-}, 7000);
+}, 1000);
 

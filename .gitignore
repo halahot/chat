@@ -1,3 +1,5 @@
 */node_modules
+/back/node_modules
+/back/yarn.lock
 /.idea
 */yarn.lock
