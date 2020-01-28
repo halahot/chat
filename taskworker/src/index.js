@@ -8,6 +8,8 @@ const {
 
 const {
     sql_send_message,
+    sql_add_friend,
+    sql_delete_friend,
 } = require('./db/sql');
 
 
@@ -53,11 +55,10 @@ async function start(){
         cmd: "add_friend",
         token: Joi.string().required(),
         login: Joi.string().required(),
-        message: Joi.string().required(),
     },
     async (req) =>{
         try{
-            let res = await master.none(sql_send_message, [req.token, req.login, req.message]);
+            let res = await master.one(sql_add_friend, [req.token, req.login]);
             return {
                 ok: true,
                 data: res,
@@ -76,11 +77,10 @@ async function start(){
         cmd: "delete_friend",
         token: Joi.string().required(),
         login: Joi.string().required(),
-        message: Joi.string().required(),
     },
     async (req) =>{
         try{
-            let res = await master.none(sql_send_message, [req.token, req.login, req.message]);
+            let res = await master.one(sql_delete_friend, [req.token, req.login]);
             return {
                 ok: true,
                 data: res,
