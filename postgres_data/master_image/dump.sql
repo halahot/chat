@@ -43,7 +43,7 @@ BEGIN
     SELECT salt FROM registrator.users WHERE login = myLogin INTO res;
     RETURN salt;
 END; $$
-LANGUAGE plgpsql SECURITY DEFINER;
+LANGUAGE plpgsql SECURITY DEFINER;
 
 
 
@@ -67,7 +67,7 @@ AS $$
 DECLARE
     res boolean;
 BEGIN
-    SELECT id FROM registrator.users WHERE token = myToken RETURNING true INTO res;
+    SELECT true FROM registrator.users WHERE token = myToken INTO res;
     RETURN res;
 END; $$
 LANGUAGE plpgsql SECURITY DEFINER;
@@ -94,7 +94,7 @@ CREATE TABLE taskworker.friend(
     id SERIAL PRIMARY KEY,
     user_id integer REFERENCES registrator.users(id),
     friend_id integer REFERENCES registrator.users(id)
-)
+);
 
 
 CREATE FUNCTION taskworker.send_message(myToken text, myTo text, myMessage text)
@@ -135,7 +135,7 @@ BEGIN
     VALUES (my_id, frinedid);
 
 END; $$
-LANGUAGE plgpsql SECURITY DEFINER;
+LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE FUNCTION taskworker.delete_friend(myToken text, myFriend text)
 RETURNS void
