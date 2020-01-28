@@ -1,6 +1,34 @@
-version: "3"
+version: "3.7"
 services:
   chat:
     build: ./back
     ports:
     - 9099:5589
+
+  postgres-master:
+    build: ./postgres_data/master_image/
+    privileged: true
+    restart: always
+    ports: 
+      - 5435:5432
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./postgres_data/master:/var/lib/postgresql/data/pgdata
+
+  
+  postgres-slave:
+    image: danieldent/postgres-replication
+    privileged: true
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+      REPLICATE_FROM: "postgres-master"
+    volumes:
+      - ./postgres_data/slave:/var/lib/postgresql/data/pgdata
+    links:
+      - "postgres-master"
