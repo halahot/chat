@@ -104,7 +104,7 @@ export class ChatServer {
 
 
       socket.on(ChatEvent.CHECK_TOKEN, async () =>{
-        let token = this.sockets_token.get(socket.id);
+        let token = this.sockets_token.get(socket.id).token;
         
         let res = await hemera.act({
           topic: 'selector',
