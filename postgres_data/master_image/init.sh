@@ -16,7 +16,7 @@ psql -v ON_ERROR_STOP=1 -U "postgres" -d "$POSTGRES_DB" <<-EOSQL
     CREATE ROLE selector LOGIN PASSWORD 'selector';
     CREATE ROLE taskworker LOGIN PASSWORD 'taskworker';
     
-    ALTER DATABASE bookstore SET search_path = '$user', public, registrator, taskworker;
+    ALTER DATABASE chat SET search_path = '$user', public, registrator, taskworker;
 EOSQL
 
 psql -v ON_ERROR_STOP=1 -U "postgres" -d "chat" <<-EOSQL
