@@ -14,7 +14,7 @@ const {
 
 
 const hemera = new HEMERA(nats, {
-    logLevel: 'info',
+    logLevel: 'fatal',
 });
 
 hemera.use(hemeraJoi);
@@ -23,7 +23,7 @@ async function start(){
 
     await hemera.ready();
 
-    const Joi = hemera.Joi;
+    const Joi = hemera.joi;
 
 
 
