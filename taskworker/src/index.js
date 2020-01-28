@@ -3,11 +3,11 @@ const hemeraJoi = require('hemera-joi');
 const HEMERA = require('nats-hemera');
 
 const {
-    slave,
+    master,
 } = require('./db/myDB');
 
 const {
-    sql_get_messages,
+    sql_send_message,
 } = require('./db/sql');
 
 
@@ -23,14 +23,18 @@ async function start(){
 
     const Joi = hemera.Joi;
 
+
+
     hemera.add({
         topic: 'taskworker',
-        cmd: "get_messages",
+        cmd: "send_message",
         token: Joi.string().required(),
+        login: Joi.string().required(),
+        message: Joi.string().required(),
     },
     async (req) =>{
         try{
-            let res = await slave.manyOrNone(sql_get_messages, [req.token]);
+            let res = await master.none(sql_send_message, [req.token, req.login, req.message]);
             return {
                 ok: true,
                 data: res,
@@ -45,8 +49,7 @@ async function start(){
     });
 }
 
-
 (async () =>{
-    console.log("Selector started");
+    console.log("Taskworker is running");
     await start();
-})()
+})();
