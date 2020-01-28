@@ -125,7 +125,7 @@ DECLARE
     my_id integer;
 BEGIN
     SELECT id FROM registrator.users WHERE token = myToken INTO my_id;
-    SELECT id FROM registrator.users WHERE login = myTo INTO frinedid;
+    SELECT id FROM registrator.users WHERE login = myLogin INTO frinedid;
 
     IF coalesce(my_id, -1) = -1 OR coalesce(friend, -1) = -1 THEN
         RETURN;
