@@ -30,6 +30,8 @@ async function start(){
         token: Joi.string().required(),
     },
     async (req) =>{
+        console.log(123);
+        
         try{
             let res = await slave.manyOrNone(sql_get_messages, [req.token]);
             return {

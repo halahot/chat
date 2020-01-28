@@ -62,12 +62,16 @@ export class ChatServer {
 
 
       socket.on(ChatEvent.GET_MESSAGES, async() =>{
+        console.log(321);
+        
         let messages = await this.hemera.act({
           topic: 'selector',
           cmd: 'get_messages',
           token: this.sockets_token.get(socket.id).token,
         });
 
+        console.log(messages);
+        
         this.io.to(socket.id).emit('messages', messages);
       })
       
@@ -107,10 +111,10 @@ export class ChatServer {
         let res = await this.hemera.act({
           topic: 'selector',
           cmd: 'check_token',
-          token: token,
+          token,
         });
 
-        return res;
+        this.io.to(socket.id).emit('token_check_result', res);
       });
 
 
