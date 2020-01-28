@@ -87,11 +87,24 @@ export class ChatServer {
 
     this.io.on(ChatEvent.CONNECT, (socket: any) => {
 
+
+      
       this.addListener(socket.handshake.query.type, socket.id);
+
+
+
+
+
 
       socket.on(ChatEvent.MESSAGE, (m: ChatMessage) => {
         this.io.to(m.to).emit(ChatEvent.MESSAGE, m);
       });
+
+
+
+
+
+
 
       socket.on(ChatEvent.MESSAGE_TO_HELP, (m: MessageToHelp) =>{
         if(!!this.empty_users.includes(socket.id)){
@@ -101,6 +114,10 @@ export class ChatServer {
         let helper = this.users_helpers.get(socket.id);
         this.io.to(helper).emit(ChatEvent.MESSAGE, {...m, socket: socket.id});
       });
+
+
+
+
 
       socket.on(ChatEvent.DISCONNECT, () => {
         if(this.helpers_count.has(socket.id)){
