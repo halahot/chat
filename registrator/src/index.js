@@ -25,7 +25,7 @@ fastify.route({
 });
 
 fastify.route({
-    method: "GET",
+    method: "POST",
     url: "/register",
     handler: async (req, reply) =>{
         let login = req.body.log;
