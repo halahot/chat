@@ -11,4 +11,5 @@ export enum ChatEvent {
     GET_MESSAGES = 'get_messages',
     GET_USERS = 'get_users',
     CHECK_TOKEN = 'check_token',
+    GET_ACCOUNT = "get_account"
 }

@@ -9,6 +9,8 @@ const {
 const {
     sql_get_messages,
     sql_get_users,
+    sql_check_token,
+    sql_get_account,
 } = require('./db/sql');
 
 
@@ -75,6 +77,27 @@ async function start(){
     async (req) =>{
         try{
             let res = await slave.one(sql_check_token, [req.token]);
+            return {
+                ok: true,
+                data: res.check_token,
+            }
+        }
+        catch(e){
+            return {
+                ok: false,
+                data: e,
+            }
+        }
+    });
+
+    hemera.add({
+        topic: 'selector',
+        cmd: "get_account",
+        token: Joi.string().required(),
+    },
+    async (req) =>{
+        try{
+            let res = await slave.oneOrNone(sql_get_account, [req.token]);
             return {
                 ok: true,
                 data: res.check_token,

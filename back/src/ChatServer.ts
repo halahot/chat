@@ -98,7 +98,7 @@ export class ChatServer {
         });
 
         if(socket.has(m.to)){
-          this.io.to(this.login_sockets.get(m.to)).emit(ChatEvent.MESSAGE, m);
+          this.io.to(this.login_sockets.get(m.to)).emit(ChatEvent.MESSAGE, {...m, from: user.login});
         }
       });
 
@@ -147,19 +147,27 @@ export class ChatServer {
         this.io.to(socket.id).emit('ok_delete_friend', res.data);
       });
 
+      socket.on(ChatEvent.GET_ACCOUNT, async (msg: any) =>{
+        let user = this.sockets_token.get(socket.id);
 
+        let res = await hemera.act({
+          topic: 'selector',
+          cmd: 'get_account',
+          token: user.token,
+          timedout$: 3000,
+        });
 
-      console.log('join', this.sockets_token);
+        this.io.to(socket.id).emit('account_info', res.data);
+      });
 
-
-
+      //console.log('join', this.sockets_token);
 
       socket.on(ChatEvent.DISCONNECT, () => {
 
         this.login_sockets.delete(this.sockets_token.get(socket.id).login);
         this.sockets_token.delete(socket.id);
 
-        console.log('Leave', this.sockets_token);
+        //console.log('Leave', this.sockets_token);
 
       });
     });

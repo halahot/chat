@@ -84,7 +84,7 @@ fastify.route({
 
 
         try{
-            let res = await master.oneOrNone(sql_salt, [login]);
+            let res = await master.one(sql_salt, [login]);
             reply.send({
                 ok: true,
                 data: res.salt_by_login,
