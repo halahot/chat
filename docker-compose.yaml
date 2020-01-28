@@ -3,7 +3,32 @@ services:
   chat:
     build: ./back
     ports:
-    - 9099:5589
+      - 9099:5589
+    links: 
+      - mynats
+  
+  
+  selector:
+    build: ./selector
+    links: 
+      - mynats
+      - postgres-slave
+    
+
+  taskworker:
+    build: ./taskworker
+    links:
+      - mynats
+      - postgres-master
+
+      
+
+  mynats:
+    image: nats
+    logging:
+      driver: "none"
+    restart: always
+    hostname: nats-server
 
   postgres-master:
     build: ./postgres_data/master_image/
