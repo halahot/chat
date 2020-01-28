@@ -24,8 +24,50 @@ async function start(){
     const Joi = hemera.Joi;
 
     hemera.add({
-        topic: 'taskworker',
+        topic: 'selector',
         cmd: "get_messages",
+        token: Joi.string().required(),
+    },
+    async (req) =>{
+        try{
+            let res = await slave.manyOrNone(sql_get_messages, [req.token]);
+            return {
+                ok: true,
+                data: res,
+            }
+        }
+        catch(e){
+            return {
+                ok: false,
+                data: e,
+            }
+        }
+    });
+
+    hemera.add({
+        topic: 'selector',
+        cmd: "get_users",
+        token: Joi.string().required(),
+    },
+    async (req) =>{
+        try{
+            let res = await slave.manyOrNone(sql_get_messages, [req.token]);
+            return {
+                ok: true,
+                data: res,
+            }
+        }
+        catch(e){
+            return {
+                ok: false,
+                data: e,
+            }
+        }
+    });
+
+    hemera.add({
+        topic: 'selector',
+        cmd: "check_token",
         token: Joi.string().required(),
     },
     async (req) =>{

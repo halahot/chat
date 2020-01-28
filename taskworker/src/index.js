@@ -27,7 +27,7 @@ async function start(){
 
     hemera.add({
         topic: 'taskworker',
-        cmd: "send_message",
+        cmd: "save_message",
         token: Joi.string().required(),
         login: Joi.string().required(),
         message: Joi.string().required(),

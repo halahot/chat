@@ -4,12 +4,6 @@ import { ChatEvent } from './constants';
 import {
   ChatMessage,
 } from './types';
-import { 
-  master as DB,
-} from './db/myDB';
-import {
-  sql_send_message, sql_get_messages,
-} from './db/sql';
 import { createServer, Server } from 'http';
 const nats = require('nats').connect('mynats:4222');
 const HEMERA = require('nats-hemera');
@@ -27,12 +21,16 @@ export class ChatServer {
   private port: string | number;
   private sockets_token: any;
   private login_sockets: any;
+  private hemera: any;
 
   constructor () {
     this._app = express();
     this.port = process.env.PORT || ChatServer.PORT;
     this.sockets_token = new Map();
     this.login_sockets = new Map();
+    this.hemera = new HEMERA(nats, {
+      logLevel: 'info',
+    });
     this._app.use(cors());
     this._app.options('*', cors());
     this.server = createServer(this._app);
@@ -57,23 +55,80 @@ export class ChatServer {
     this.io.on(ChatEvent.CONNECT, async (socket: any) => {
 
 
+      await hemera.ready();
+
 
       this.addListener(socket.handshake.query.type, socket.id, socket.handshake.query.login, socket.handshake.query.token);
 
-      let res = "";//await DB.manyOrNone(sql_get_messages, [socket.handshake.query.token]);
 
+      socket.on(ChatEvent.GET_MESSAGES, async() =>{
+        let messages = await this.hemera.act({
+          topic: 'selector',
+          cmd: 'get_messages',
+          token: this.sockets_token.get(socket.id).token,
+        });
+
+        this.io.to(socket.id).emit('messages', messages);
+      })
       
-      this.io.to(socket.id).emit('messages', res);
+
+      socket.on(ChatEvent.GET_USERS, async() =>{
+        let users = await this.hemera.act({
+          topic: 'selector',
+          cmd: 'get_users',
+          token: this.sockets_token.get(socket.id).token,
+        });
+
+        this.io.to(socket.id).emit('users', users);
+      })
+
+
 
       socket.on(ChatEvent.MESSAGE, async (m: ChatMessage) => {
         let user = this.sockets_token.get(socket.id);
 
-        res = await DB.none(sql_send_message, [user.token, m.to, m.message]);
+        await this.hemera.act({
+          topic: 'taskworker',
+          cmd: 'save_message',
+          token: user.token,
+          login: m.to,
+          message: m.message,
+        });
 
         if(socket.has(m.to)){
           this.io.to(this.login_sockets.get(m.to)).emit(ChatEvent.MESSAGE, m);
         }
       });
+
+
+      socket.on(ChatEvent.ADD_FRIEND, async (msg: any) =>{
+        let user = this.sockets_token.get(socket.id);
+
+        let res = await this.hemera.act({
+          topic: 'taskworker',
+          cmd: 'add_friend',
+          token: user.token,
+          login: msg.login,
+        });
+
+        this.io.to(socket.id).emit('ok_add_friend', res);
+      });
+
+
+
+      socket.on(ChatEvent.DELETE_FRIEND, async (msg: any) =>{
+        let user = this.sockets_token.get(socket.id);
+
+        let res = await this.hemera.act({
+          topic: 'taskworker',
+          cmd: 'delete_friend',
+          token: user.token,
+          login: msg.login,
+        });
+
+        this.io.to(socket.id).emit('ok_delete_friend', res);
+      });
+
 
 
       console.log('join', this.sockets_token);
