@@ -61,6 +61,17 @@ END; $$
 LANGUAGE plpgsql SECURITY DEFINER;
 
 
+CREATE FUNCTION registrator.check_token(myToken text)
+RETURNS boolean 
+AS $$
+DECLARE
+    res boolean;
+BEGIN
+    SELECT id FROM registrator.users WHERE token = myToken RETURNING true INTO res;
+    RETURN res;
+END; $$
+LANGUAGE plpgsql SECURITY DEFINER;
+
 
 GRANT USAGE ON SCHEMA registrator TO registrator;
 
@@ -150,5 +161,6 @@ GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA taskworker TO taskworker;
 
 GRANT USAGE ON SCHEMA taskworker TO selector;
 GRANT USAGE ON SCHEMA registrator TO selector;
+GRANT EXECUTE ON FUNCTION registrator.check_token(text) TO selector;
 GRANT SELECT ON ALL TABLES IN SCHEMA registrator TO selector;
 GRANT SELECT ON ALL TABLES IN SCHEMA taskworker TO selector;
