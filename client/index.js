@@ -59,4 +59,4 @@ function delete_friend(login){
   socket.emit('delete_friend', {login});
 }
 
-setTimeout(() => {get_friends()},1000);
+setTimeout(() => {get_messages()},1000);
