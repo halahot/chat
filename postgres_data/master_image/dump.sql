@@ -127,11 +127,11 @@ BEGIN
     SELECT id FROM registrator.users WHERE token = myToken INTO my_id;
     SELECT id FROM registrator.users WHERE login = myLogin INTO frinedid;
 
-    IF coalesce(my_id, -1) = -1 OR coalesce(friend, -1) = -1 THEN
+    IF coalesce(my_id, -1) = -1 OR coalesce(frinedid, -1) = -1 THEN
         RETURN;
     END IF;
 
-    INSERT INTO taskworker.frined(user_id, friend_id)
+    INSERT INTO taskworker.friend(user_id, friend_id)
     VALUES (my_id, frinedid);
 
 END; $$
@@ -145,9 +145,9 @@ AS $$
     my_id integer;
 BEGIN
     SELECT id FROM registrator.users WHERE token = myToken INTO my_id;
-    SELECT id FROM registrator.users WHERE login = myTo INTO frinedid;
+    SELECT id FROM registrator.users WHERE login = myFriend INTO frinedid;
 
-    IF coalesce(my_id, -1) = -1 OR coalesce(friend, -1) = -1 THEN
+    IF coalesce(my_id, -1) = -1 OR coalesce(frinedid, -1) = -1 THEN
         RETURN;
     END IF;
 
