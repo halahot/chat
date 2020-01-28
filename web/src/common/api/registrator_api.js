@@ -1,6 +1,6 @@
 const axios = require("axios");
 const bcrypt = require("bcryptjs");
-
+import * as actions from '../redux/actions';
 
 const ip = "84.201.157.99"
 
@@ -9,6 +9,7 @@ const adress = `http://${ip}:${Rport}`;
 
 
 export function register(login, password, name){
+  return dispatch => {
     return new Promise((resolve, reject) =>{
       bcrypt.genSalt(10,(err, salt) =>{
         bcrypt.hash(password, salt, async (err, hash) =>{
@@ -20,6 +21,13 @@ export function register(login, password, name){
               nam: name,
             });
   
+            if(res.data.data)
+            {
+              dispatch(actions.success_registration());
+            }
+            else{
+              dispatch(actions.failed_registration());
+            }
             resolve(res.data);
           }
           catch(e){
@@ -32,24 +40,34 @@ export function register(login, password, name){
       })
     })
   }
+    
+  }
   
 export async function login(login, password){
+  return dispatch => {
     return new Promise( async(reslove, reject) =>{
-        let salt = await axios.post(`${adress}/salt`, {
-            log: login,
+      let salt = await axios.post(`${adress}/salt`, {
+        log: login,
+      });
+
+      if(!salt.data.data){
+        dispatch(actions.failed_login());
+        reslove({ok: false, e: "Нет такого пользователя"});
+      };
+
+      bcrypt.hash(password, salt.data.data, async (err, hash) =>{
+        let res = await axios.post(`${adress}/login`, {
+          log: login,
+          pas: hash,
         });
-
-        if(!salt.data.data){
-            reslove({ok: false, e: "Нет такого пользователя"});
+        if(res.data.data){
+          dispatch(actions.success_token_check(res.data.data));
         }
-
-        bcrypt.hash(password, salt.data.data, async (err, hash) =>{
-            let res = await axios.post(`${adress}/login`, {
-                log: login,
-                pas: hash,
-            });
-
-            reslove(res.data);
-        })
+        else{
+          dispatch(actions.failed_login());
+        }
+        reslove(res.data);
+      });
     })
+  }
 }

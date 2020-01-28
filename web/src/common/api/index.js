@@ -1,7 +1,6 @@
 const io = require("socket.io-client");
 
 import * as actions from '../redux/actions';
-import * as types from '../redux/types';
 
 const ip = "84.201.157.99"
 const Sport = 9099;
@@ -12,7 +11,7 @@ export function init(token, login){
   socket = io.connect(`http://${ip}:${Sport}?type=user&login=${login}&token=${token}`);
   return dispatch => {
     socket.on('message', (res) =>{
-      dispatch(msg());
+      dispatch(get_messages());
     })
   }
 }

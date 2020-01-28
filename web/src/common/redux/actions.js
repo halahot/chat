@@ -110,3 +110,23 @@ export function success_send_message(){
         type: types.SUCCESS_SEND_MESSAGE,
     }
 }
+
+
+export function success_registration(){
+    return {
+        type: types.SUCCESS_REGISTER,
+    }
+}
+
+export function failed_registration(){
+    return {
+        type: types.FAILED_REGISTER,
+    }
+}
+
+
+export function failed_login(){
+    return {
+        type: types.FAILED_LOGIN,
+    }
+}
