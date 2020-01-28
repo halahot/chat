@@ -10,6 +10,7 @@ const {
 const {
     sql_login,
     sql_register,
+    sql_salt,
 } = require('./db/sql');
 
 fastify.register(cors);
@@ -22,6 +23,82 @@ fastify.route({
         reply.send({data: 123})
     }
 });
+
+fastify.route({
+    method: "GET",
+    url: "/register",
+    handler: async (req, reply) =>{
+        let login = req.body.log;
+        let password = req.body.pas;
+        let salt = req.body.sal;
+        let name = req.body.nam;
+
+
+        try{
+            let res = await master.one(sql_register, [login, password, salt, name]);
+            reply.send({
+                ok: true,
+                data: res.register,
+            });
+        }
+        catch(e){
+            reply.send({
+                ok: false,
+                data: e,
+            });
+        }
+        
+    }
+})
+
+fastify.route({
+    method: "POST",
+    url: "/login",
+    handler: async (req, reply) =>{
+        let login = req.body.log;
+        let password = req.body.pas;
+
+
+        try{
+            let res = await master.one(sql_login, [login, password]);
+            reply.send({
+                ok: true,
+                data: res.login,
+            });
+        }
+        catch(e){
+            reply.send({
+                ok: false,
+                data: e,
+            });
+        }
+        
+    }
+})
+
+fastify.route({
+    method: "POST",
+    url: "/salt",
+    handler: async (req, reply) =>{
+        let login = req.body.log;
+
+
+        try{
+            let res = await master.oneOrNone(sql_salt, [login]);
+            reply.send({
+                ok: true,
+                data: res.salt_by_login,
+            });
+        }
+        catch(e){
+            reply.send({
+                ok: false,
+                data: e,
+            });
+        }
+        
+    }
+})
 
 
 const start = async () => {
