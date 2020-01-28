@@ -41,7 +41,7 @@ DECLARE
     res text;
 BEGIN
     SELECT salt FROM registrator.users WHERE login = myLogin INTO res;
-    RETURN salt;
+    RETURN res;
 END; $$
 LANGUAGE plpgsql SECURITY DEFINER;
 
