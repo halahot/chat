@@ -29,6 +29,11 @@ services:
     ports: 
       - 9025:9098
 
+  web:
+    build: ./web
+    ports:
+      - 3000:3000
+
       
 
   mynats:
