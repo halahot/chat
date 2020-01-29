@@ -15,6 +15,10 @@ import {
 } from '../../common/api/registrator_api';
 
 import {
+  init,
+} from '../../common/api/index';
+
+import {
   Link,
   Redirect,
 } from 'react-router-dom';
@@ -43,9 +47,16 @@ class Login extends React.Component{
   }
 
   render(){
+    let rr = "";
+
+    if(this.props.token){
+      rr = <Redirect to="main"/>;
+
+      this.props.my_init(this.props.token, this.state.login);
+    }
     return(
       <div style={{maxWidth:"100vw"}}>
-         {this.props.token ? <Redirect to="main"/>: ""}
+         {rr}
         <Header></Header>
         <Main>
           <div className="auth-form">
@@ -88,6 +99,9 @@ const mapDispatchToProps = dispatch =>{
   return {
     my_login: (logi, password) =>{
       dispatch(login(logi, password));
+    },
+    my_init: (tok, log) =>{
+      dispatch(init(tok, log));
     }
   }
 }

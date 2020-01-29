@@ -1,6 +1,8 @@
+import * as actions from '../redux/actions';
+
+
 const io = require("socket.io-client");
 
-import * as actions from '../redux/actions';
 
 const ip = "84.201.157.99"
 const Sport = 9099;
