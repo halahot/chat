@@ -1,6 +1,8 @@
+import * as actions from '../redux/actions';
+
+
 const axios = require("axios");
 const bcrypt = require("bcryptjs");
-import * as actions from '../redux/actions';
 
 const ip = "84.201.157.99"
 
@@ -43,7 +45,7 @@ export function register(login, password, name){
     
   }
   
-export async function login(login, password){
+export function login(login, password){
   return dispatch => {
     return new Promise( async(reslove, reject) =>{
       let salt = await axios.post(`${adress}/salt`, {

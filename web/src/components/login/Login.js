@@ -9,12 +9,14 @@ import {
   connect
 } from 'react-redux';
 
+
 import {
-  register,
+  login,
 } from '../../common/api/registrator_api';
 
 import {
   Link,
+  Redirect,
 } from 'react-router-dom';
 
 
@@ -36,14 +38,17 @@ class Login extends React.Component{
 
   handleClick = (e) =>{
     e.preventDefault();
+
+    this.props.my_login(this.state.login, this.state.password);
   }
 
   render(){
     return(
       <div style={{maxWidth:"100vw"}}>
+         {this.props.token ? <Redirect to="main"/>: ""}
         <Header></Header>
         <Main>
-          <div class="auth-form">
+          <div className="auth-form">
             <form>
               <p className="error"></p>
 
@@ -62,7 +67,7 @@ class Login extends React.Component{
 
               <button className="my-btn" onClick={this.handleClick}>Войти</button>
 
-              <p className="nav-link"><Link to={"/register"}>ЗАРЕГИСТРИРОВАТЬСЯ</Link></p>
+              <p className="nav-link">Нет аккаунта? <Link to={"/register"}>ЗАРЕГИСТРИРОВАТЬСЯ</Link></p>
             </form>
           </div>
         </Main>
@@ -75,13 +80,14 @@ class Login extends React.Component{
 const mapStateToProps = state =>{
   return {
     register: state.register,
+    token: state.token
   }
 }
 
 const mapDispatchToProps = dispatch =>{
   return {
-    my_register: (login, password, name) =>{
-      dispatch(register(login, password, name));
+    my_login: (logi, password) =>{
+      dispatch(login(logi, password));
     }
   }
 }

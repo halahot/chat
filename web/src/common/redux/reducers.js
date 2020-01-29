@@ -50,6 +50,9 @@ export function register(state = {error: "", success: false}, action){
     if(action.type === types.SUCCESS_REGISTER){
         return {error: "", success: true,}
     }
+    if(action.type === "REGISTRATOR_REMAKE"){
+        return {error: "", success: false,}
+    }
     if(action.type === types.FAILED_REGISTER){
         return {error: "Логин занят", success: false,}
     }

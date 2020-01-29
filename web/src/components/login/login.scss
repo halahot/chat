@@ -1,6 +1,6 @@
 .auth-form{
     position: absolute;
-    left: 43vw;
+    left: 40vw;
     top: 30vh;
 }
 
@@ -10,10 +10,16 @@
 }
 
 .nav-link{
-    margin-top: 50px;
-    text-align: center;
+    margin-top: 60px;
+    text-align: left;
 }
 
 .auth-form form label{
     margin: 0px;
+}
+
+.auth-form input{
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding:10px;
 }

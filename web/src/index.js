@@ -14,7 +14,6 @@ import "./index.scss";
 import Login from './components/login/Login';
 import Register from './components/register/Register';
 
-
 const store = configurateStore();
 
 ReactDOM.render(

@@ -6,8 +6,16 @@ import Main from '../main/Main';
 import Footer from '../footer/Footer';
 
 import {
-  Link,
+  Modal,
+} from 'antd'
+
+import {
+  Link, Redirect,
 } from 'react-router-dom';
+
+import {
+  connect
+} from 'react-redux';
 
 import {
     register,
@@ -22,6 +30,7 @@ class Register extends React.Component{
       password: "",
       confirm: "",
       name: "",
+      visible: false,
     }
   }
 
@@ -33,16 +42,59 @@ class Register extends React.Component{
 
   handleClick = (e) =>{
     e.preventDefault();
+
+    let {login, password, confirm, name} = this.state;
+
+    if(password === confirm && login && name){
+      this.props.my_register(login, password, name);
+      this.setState({
+        login: "",
+        password: "",
+        confirm: "",
+        name: "",
+      });
+    }
   }
 
+  showModal = () => {
+    this.props.remake();
+    this.setState({
+      visible: true,
+    });
+  };
+
+  hideModal = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+
   render(){
+    if(this.props.register.success){
+      setTimeout(() =>{
+        this.showModal();
+
+        
+      }, 100)
+    }
     return(
       <div style={{maxWidth:"100vw"}}>
+        {this.props.token ? <Redirect to="main"/>: ""}
         <Header></Header>
         <Main>
-          <div class="auth-form">
+          <div className="auth-form">
+          <Modal
+            title="Регистрация"
+            visible={this.state.visible}
+            onOk={this.hideModal}
+            onCancel={this.hideModal}
+            okText="OK"
+            cancelText="CANCEL"
+          >
+            <p>Вы успешно зарегистрировались</p>
+          </Modal>
             <form>
-              <p className="error"></p>
+              <p className="error">{this.props.register.error}</p>
 
               <label>
                 Логин <br/>
@@ -63,13 +115,13 @@ class Register extends React.Component{
               <br/>
               <label>
                 Имя <br/>
-                <input type="password" value={this.state.name} name="name" onChange={this.handleChange}/>
+                <input type="text" value={this.state.name} name="name" onChange={this.handleChange}/>
               </label>
               <br/>
 
               <button className="my-btn" onClick={this.handleClick}>Зарегистрироваться</button>
 
-              <p className="nav-link"><Link to={"/login"}>ВОЙТИ</Link></p>
+              <p className="nav-link">Уже есть аккаунт? <Link to={"/login"}>ВОЙТИ</Link></p>
             </form>
           </div>
         </Main>
@@ -83,6 +135,7 @@ class Register extends React.Component{
 const mapStateToProps = state =>{
     return {
       register: state.register,
+      token: state.token
     }
   }
   
@@ -90,6 +143,9 @@ const mapDispatchToProps = dispatch =>{
     return {
         my_register: (login, password, name) =>{
             dispatch(register(login, password, name));
+        },
+        remake: () =>{
+          dispatch({type: "REGISTRATOR_REMAKE"})
         }
     }
 }
