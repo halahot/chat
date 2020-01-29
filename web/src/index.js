@@ -9,6 +9,9 @@ import {
 import * as serviceWorker from './serviceWorker';
 import configurateStore from './common/redux/store';
 import { Provider } from 'react-redux';
+import "./index.scss";
+
+import Login from './components/login/Login';
 
 
 const store = configurateStore();
@@ -18,6 +21,7 @@ ReactDOM.render(
     <BrowserRouter>
         <Switch>
             <Route exact path={"/"}/>
+            <Route exact path={"/login"} component={Login}/>
             <Redirect to={"/"}/>
         </Switch>
     </BrowserRouter>
