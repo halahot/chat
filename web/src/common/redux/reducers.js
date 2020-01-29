@@ -1,5 +1,4 @@
 import * as types from './types';
-import Cookies from 'js-cookie';
 
 export function messages(state = [], action){
     if(action.type === types.START_GET_MESSAGES){

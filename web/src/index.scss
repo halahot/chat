@@ -8,3 +8,21 @@ body{
     padding: 0px;
     max-width: 100wv;
 }
+
+.my-btn{
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #3455eb;
+    color: white;
+    border: 1px solid #1a286b;
+}
+
+.my-btn:hover{
+    background-color: #1a286b;
+    cursor: pointer;
+}
+
+.my-btn:active{
+    background-color: #3455eb;
+}
