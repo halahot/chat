@@ -49,7 +49,25 @@ class Chat extends React.Component{
         {rr}
         <Header></Header>
         <Main>
+          <div id="chat-page">
+            <div id="left-field">
+            
+            </div>
+            <div id="chat">
+              <div id="chat-header">
 
+              </div>
+
+              <div id="chat-messages">
+                
+              </div>
+
+              <div id="chat-form">
+                <input type="text"/> <button>GO</button>
+              </div>
+            </div>
+          </div>
+          
         </Main>
         <Footer></Footer>
       </div>
