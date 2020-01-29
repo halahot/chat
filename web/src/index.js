@@ -13,6 +13,7 @@ import "./index.scss";
 
 import Login from './components/login/Login';
 import Register from './components/register/Register';
+import Chat from './components/chat/Chat';
 
 const store = configurateStore();
 
@@ -20,9 +21,10 @@ ReactDOM.render(
 <Provider store={store}>
     <BrowserRouter>
         <Switch>
-            <Route exact path={"/"}/>
+            <Route exact path={"/"} component={Login}/>
             <Route exact path={"/login"} component={Login}/>
             <Route exact path={"/register"} component={Register} />
+            <Route exact path={"/main"} component={Chat}/>
             <Redirect to={"/"}/>
         </Switch>
     </BrowserRouter>
