@@ -31,6 +31,7 @@ class Register extends React.Component{
       confirm: "",
       name: "",
       visible: false,
+      errors: "",
     }
   }
 
@@ -45,15 +46,39 @@ class Register extends React.Component{
 
     let {login, password, confirm, name} = this.state;
 
-    if(password === confirm && login && name){
-      this.props.my_register(login, password, name);
+    if(password !== confirm){
       this.setState({
-        login: "",
-        password: "",
-        confirm: "",
-        name: "",
+        error: "Не совпадают пароли",
       });
+      return;
     }
+
+    if(password.length < 6){
+      this.setState({
+        error: "Пароль не может быть меньше 6 символов",
+      });
+      return;
+    }
+
+    if(login.length < 5){
+      this.setState({
+        error: "Логин не может быть меньше 5 символов",
+      });
+      return;
+    }
+
+    if(name.length < 3){
+      this.setState({
+        error: "Имя не может быть меньше 3 символов",
+      });
+      return;
+    }
+
+    this.props.my_register(login, password, name);
+
+    this.setState({
+      error: "",
+    });
   }
 
   showModal = () => {
@@ -94,7 +119,7 @@ class Register extends React.Component{
             <p>Вы успешно зарегистрировались</p>
           </Modal>
             <form>
-              <p className="error">{this.props.register.error}</p>
+              <p className="error">{this.state.error ? this.state.error: this.props.register.error}</p>
 
               <label>
                 Логин <br/>
