@@ -14,6 +14,10 @@ import {
 } from 'react-router-dom';
 
 import {
+  Modal,
+} from 'antd'
+
+import {
   get_account,
   get_friends,
   get_messages,
@@ -30,8 +34,45 @@ class Chat extends React.Component{
     this.props.my_get_friend();
     this.props.my_get_account();
     this.props.my_get_messages();
+
+    this.state = {
+      message: "",
+      add_friend_modal: false,
+      add_friend: "",
+    }
   }
 
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  showModalFriend = e =>{
+    this.setState({
+      add_friend_modal: true,
+    })
+  }
+
+  handleAddOk = e => {
+    e.preventDefault();
+
+    this.props.my_add_friend(this.state.add_friend);
+
+    this.props.my_get_friend();
+    this.setState({
+      add_friend_modal: false,
+    });
+  }
+
+  handleAddCancel = e =>{
+    e.preventDefault();
+
+    this.setState({
+      add_friend_modal: false,
+      add_friend: "",
+    })
+  }
 
   render(){
 
@@ -42,8 +83,12 @@ class Chat extends React.Component{
     }
     let {users, account, messages} = this.props;
     
-    this.props.my_check();
+    console.log('users', users);
+    
 
+    //this.props.my_check();
+
+    let i = 0;
     return(
       <div style={{maxWidth:"100vw"}}>
         {rr}
@@ -51,11 +96,19 @@ class Chat extends React.Component{
         <Main>
           <div id="chat-page">
             <div id="left-field">
-            
+              {users.map(user => {
+                return (
+                  <div key={i++ + user.login} className="user">
+                    {user.login}
+                  </div>
+                );
+              })}
+
+              <button className="btn-add-friend" onClick={this.showModalFriend}>+</button>
             </div>
             <div id="chat">
               <div id="chat-header">
-
+                Header
               </div>
 
               <div id="chat-messages">
@@ -63,12 +116,20 @@ class Chat extends React.Component{
               </div>
 
               <div id="chat-form">
-                <input type="text"/> <button>GO</button>
+                <input type="text" name="message" onChange={this.handleChange} value={this.state.message}/> <button>Send</button>
               </div>
             </div>
           </div>
           
         </Main>
+        <Modal
+          title={"Добавление друга"}
+          visible={this.state.add_friend_modal}
+          onOk={this.handleAddOk}
+          onCancel={this.handleAddCancel}>
+            Логин <br/>
+            <input name="add_friend" onChange={this.handleChange} value={this.state.add_friend}/>
+        </Modal>
         <Footer></Footer>
       </div>
     );

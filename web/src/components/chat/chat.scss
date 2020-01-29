@@ -1,0 +1,49 @@
+#chat-page{
+    display: flex;
+    height: 100%;
+}
+
+#left-field{
+    height: 100%;
+    min-height: calc(100vh - 181px);
+    width:300px;
+    border-right: 1px solid grey;
+}
+
+#chat{
+    width: 100%;
+}
+
+#chat-header{
+    min-width: calc(100vw-300px);
+    height: 30px;
+    border-bottom: 1px solid grey;
+    text-align: center;
+    padding-top: 10px;
+}
+
+#chat-messages{
+    height: calc(100vh - 275px);
+    border-bottom: 1px solid grey;
+}
+
+#chat-form{
+    padding: 10px;
+}
+
+#chat-form input{
+    width: calc(100% - 120px);
+}
+
+.btn-add-friend{
+    position: absolute;
+    bottom: 90px;
+    left: 170px;
+    background-color: blue;
+    border: 0px;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    color: white;
+    font-size: 30pt;
+}
