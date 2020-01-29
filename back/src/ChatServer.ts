@@ -97,7 +97,7 @@ export class ChatServer {
           timedout$: 3000,
         });
 
-        if(socket.has(m.to)){
+        if(this.login_sockets.has(m.to)){
           this.io.to(this.login_sockets.get(m.to)).emit(ChatEvent.MESSAGE, {...m, from: user.login});
         }
 
