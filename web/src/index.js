@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 import "./index.scss";
 
 import Login from './components/login/Login';
+import Register from './components/register/Register';
 
 
 const store = configurateStore();
@@ -22,6 +23,7 @@ ReactDOM.render(
         <Switch>
             <Route exact path={"/"}/>
             <Route exact path={"/login"} component={Login}/>
+            <Route exact path={"/register"} component={Register} />
             <Redirect to={"/"}/>
         </Switch>
     </BrowserRouter>

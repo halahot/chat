@@ -1,30 +1,27 @@
 import React from 'react';
-import "./login.scss";
+import "./register.scss";
 
 import Header from '../header/Header';
 import Main from '../main/Main';
 import Footer from '../footer/Footer';
 
 import {
-  connect
-} from 'react-redux';
-
-import {
-  register,
-} from '../../common/api/registrator_api';
-
-import {
   Link,
 } from 'react-router-dom';
 
+import {
+    register,
+} from '../../common/api/registrator_api';
 
-class Login extends React.Component{
+class Register extends React.Component{
   constructor(props){
     super(props);
 
     this.state = {
       login: "",
       password: "",
+      confirm: "",
+      name: "",
     }
   }
 
@@ -57,12 +54,22 @@ class Login extends React.Component{
                 Пароль <br/>
                 <input type="password" value={this.state.password} name="password" onChange={this.handleChange}/>
               </label>
-
               <br/>
 
-              <button className="my-btn" onClick={this.handleClick}>Войти</button>
+              <label>
+                Подтверждение пароля <br/>
+                <input type="password" value={this.state.confirm} name="confirm" onChange={this.handleChange}/>
+              </label>
+              <br/>
+              <label>
+                Имя <br/>
+                <input type="password" value={this.state.name} name="name" onChange={this.handleChange}/>
+              </label>
+              <br/>
 
-              <p className="nav-link"><Link to={"/register"}>ЗАРЕГИСТРИРОВАТЬСЯ</Link></p>
+              <button className="my-btn" onClick={this.handleClick}>Зарегистрироваться</button>
+
+              <p className="nav-link"><Link to={"/login"}>ВОЙТИ</Link></p>
             </form>
           </div>
         </Main>
@@ -72,18 +79,19 @@ class Login extends React.Component{
   }
 }
 
-const mapStateToProps = state =>{
-  return {
-    register: state.register,
-  }
-}
 
-const mapDispatchToProps = dispatch =>{
-  return {
-    my_register: (login, password, name) =>{
-      dispatch(register(login, password, name));
+const mapStateToProps = state =>{
+    return {
+      register: state.register,
     }
   }
+  
+const mapDispatchToProps = dispatch =>{
+    return {
+        my_register: (login, password, name) =>{
+            dispatch(register(login, password, name));
+        }
+    }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
