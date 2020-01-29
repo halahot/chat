@@ -7,7 +7,7 @@ class Footer extends React.Component{
     render(){
         return(
             <div id="footer">
-                <p>123</p>
+                <div>Тестовый проект, реализованный студентом группы ИС-306/б. Права почти защищены.</div>
             </div>
         );
     }

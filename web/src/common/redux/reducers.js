@@ -2,7 +2,7 @@ import * as types from './types';
 
 export function messages(state = [], action){
     if(action.type === types.START_GET_MESSAGES){
-        return [];
+        return state;
     }
     if(action.type === types.SUCCESS_GET_MESSAGES){
         return action.payload;

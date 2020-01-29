@@ -30,6 +30,8 @@ export function get_messages(){
   
   
         socket.on('messages', (res) =>{
+          console.log('messages', res.data);
+          
           dispatch(actions.succes_get_messages(res.data));
           reslove(res);
         });
@@ -49,7 +51,7 @@ export function get_friends(){
         socket.emit('get_users');
 
 
-        socket.on('users', (res) =>{
+        socket.on('users', (res) =>{          
           dispatch(actions.succes_get_users(res.data));
           reslove(res);
         });
@@ -157,6 +159,8 @@ export function send_message(message, to){
         });
 
         socket.on('sended_message', (res) =>{
+          console.log("12332");
+          
           dispatch(get_messages());
           dispatch(actions.success_send_message());
           reslove(res);

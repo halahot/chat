@@ -11,7 +11,7 @@ export function start_get_messages(){
 
 export function succes_get_messages(messages){
     return {
-        type: types.START_GET_MESSAGES,
+        type: types.SUCCESS_GET_MESSAGES,
         payload: messages,
     }
 }
@@ -27,7 +27,7 @@ export function start_get_users(){
 
 export function succes_get_users(users){
     return {
-        type: types.START_GET_USERS,
+        type: types.SUCCESS_GET_USERS,
         payload: users,
     }
 }

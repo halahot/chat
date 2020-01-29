@@ -23,6 +23,7 @@
 }
 
 #chat-messages{
+    overflow: auto;
     height: calc(100vh - 275px);
     border-bottom: 1px solid grey;
 }
@@ -38,12 +39,129 @@
 .btn-add-friend{
     position: absolute;
     bottom: 90px;
-    left: 170px;
-    background-color: blue;
+    left: 10px;
+    background-color: #668fde;
     border: 0px;
     border-radius: 50px;
     width: 50px;
     height: 50px;
     color: white;
     font-size: 30pt;
+}
+
+.btn-add-friend:hover{
+    cursor: pointer;
+}
+
+
+.user{
+    padding: 10px;
+    padding-top: 11px;
+    border-bottom: 1px solid grey;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.user div:last-child{
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.user div:first-child{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.user-selected div:last-child{
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.user:hover{
+    background-color: #668fde;
+    color: white;
+    cursor: pointer;
+}
+
+.user-selected{
+    padding: 10px;
+    padding-top: 11px;
+    border-bottom: 1px solid grey;
+    background-color: #668fde;
+    color: white;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.user-selected div:first-child{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-message{
+    display: flex;
+    flex-direction: row-reverse;
+    color: white;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+
+}
+
+.not-my-message{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: white;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.not-my-message div > div:first-child{
+    background-color: rgb(110, 100, 247);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.my-message div > div:first-child{
+    background-color: #668fde;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.msg-date{
+    font-size: 10pt;
+    color: grey;
+}
+
+
+.delete_user:hover{
+    cursor: pointer;
+}
+
+.close-header{
+    position: absolute;
+    right: 10px;
+}
+
+.close-header:hover{
+    cursor: pointer;
+}
+
+.user-login{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+#chat-header{
+    display: flex;
+}
+
+#chat-header div:first-child{
+    margin-left: auto;
+    margin-right: auto;
 }
