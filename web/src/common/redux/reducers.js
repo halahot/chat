@@ -29,17 +29,18 @@ export function account(state = {}, action){
     if(action.type === types.SUCCESS_GET_ACCOUNT){
         return action.payload;
     }
+    if(action.type === "RESET"){
+        return {};
+    }
     return state;
 }
 
 
 export function token(state = '', action){
-    if(action.type === types.SUCCESS_TOKEN_CHECK){
-        // Cookies.set('token', action.payload);
+    if(action.type === types.SUCCESS_TOKEN_CHECK ){
         return action.payload;
     }
-    if(action.type === types.FAILED_TOKEN_CHECK){
-        // Cookies.set('token', '');
+    if(action.type === types.FAILED_TOKEN_CHECK|| action.type === "RESET"){
         return '';
     }
     return state;
@@ -47,6 +48,9 @@ export function token(state = '', action){
 
 
 export function register(state = {error: "", success: false}, action){
+    if(action.type === types.SUCCESS_TOKEN_CHECK){
+        return {error: "", success: false,}
+    }
     if(action.type === types.SUCCESS_REGISTER){
         return {error: "", success: true,}
     }
@@ -61,6 +65,9 @@ export function register(state = {error: "", success: false}, action){
 
 
 export function login(state = {error: ""}, action){
+    if(action.type === types.SUCCESS_TOKEN_CHECK){
+        return {error: ""};
+    }
     if(action.type === types.FAILED_LOGIN){
         return {error: "Нет такого пользователя"};
     }
