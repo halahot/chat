@@ -26,6 +26,7 @@ services:
     build: ./registrator
     links:
       - postgres-master
+      - web
     ports: 
       - 9025:9098
 

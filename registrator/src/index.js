@@ -14,7 +14,7 @@ const {
 } = require('./db/sql');
 
 fastify.register(cors, {
-    origin: "*",
+    origin: "web",
 });
 
 
