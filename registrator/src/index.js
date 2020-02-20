@@ -13,7 +13,7 @@ const {
     sql_salt,
 } = require('./db/sql');
 
-fastify.register(cors, {
+fastify.register(cors(), {
     origin: /w+/,
 });
 
@@ -36,6 +36,7 @@ fastify.route({
         let salt = req.body.sal;
         let name = req.body.nam;
 
+        reply.header("Access-Control-Allow-Origin", "*")
 
         try{
             let res = await master.one(sql_register, [login, password, salt, name]);
