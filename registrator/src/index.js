@@ -13,7 +13,7 @@ const {
     sql_salt,
 } = require('./db/sql');
 
-fastify.register(cors());
+fastify.register(cors);
 
 
 
