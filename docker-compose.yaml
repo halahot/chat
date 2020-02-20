@@ -33,7 +33,7 @@ services:
     build: ./web
     ports:
       - 3000:3000
-    link:
+    links:
       - registrator
       - chat
 
