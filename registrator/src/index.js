@@ -14,8 +14,9 @@ const {
 } = require('./db/sql');
 
 fastify.register(cors, {
-    origin: "0.0.0.0",
+    origin: /w+/,
 });
+
 
 
 fastify.route({
