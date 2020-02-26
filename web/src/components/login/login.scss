@@ -1,8 +1,4 @@
-.auth-form{
-    position: absolute;
-    left: 40vw;
-    top: 30vh;
-}
+$maincolor: #08f;
 
 .auth-form > form > button {
     position: absolute;
@@ -12,14 +8,46 @@
 .nav-link{
     margin-top: 60px;
     text-align: left;
+
+    a{
+        text-decoration: none;
+        color: #fff;
+        font-weight: 900;
+        text-shadow: 0 0 10px #000;
+    }
 }
 
 .auth-form form label{
     margin: 0px;
 }
 
+.auth-form{
+    padding: 0 20px;
+    width: 25vmax;
+    margin: 20vh auto;
+
+    input{
+        margin-top: 5px;
+    }
+
+    button{
+        background: $maincolor;
+        border: 1px solid rgba(0,0,0,.5);
+        position: static !important;
+        float: right;
+        margin-right: -20px;
+        transition: background-color .5s;
+
+        &:hover{
+            background: #06f;
+        }
+    }
+}
+
+
 .auth-form input{
     border: 1px solid grey;
     border-radius: 10px;
     padding:10px;
+    width: 100%;
 }

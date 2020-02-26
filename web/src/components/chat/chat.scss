@@ -4,10 +4,10 @@
 }
 
 #left-field{
-    height: 100%;
     min-height: calc(100vh - 181px);
     width:300px;
     border-right: 1px solid grey;
+    background: #fff;
 }
 
 #chat{
@@ -25,32 +25,56 @@
 #chat-messages{
     overflow: auto;
     height: calc(100vh - 275px);
-    border-bottom: 1px solid grey;
+    padding-bottom: 0;
 }
 
 #chat-form{
-    padding: 10px;
+    box-sizing: border-box;
+    padding: 12px;
+    background: #fff;
+    margin-top: 10px;
+
+    button{
+        box-sizing: border-box;
+        margin-left: -26px;
+        vertical-align: top;
+        border-radius: 0 50%;
+        border: none;
+        height: 47px;
+        background: #08f;
+        color: #fff;
+        font-size: 1.2rem;
+    }
+
+    input{
+        box-sizing: border-box;
+        font-size: 1.5rem;
+        padding: 7px 5px;
+        border-radius: 0 20px 20px 0;
+        border: 2px solid #08f;
+        width: 80%;
+    }
 }
 
 #chat-form input{
-    width: calc(100% - 120px);
+    width: calc(100% - 48px);
 }
 
 .btn-add-friend{
     position: absolute;
     bottom: 90px;
     left: 10px;
-    background-color: #668fde;
-    border: 0px;
+    background-color: #08f;
+    border: none;
     border-radius: 50px;
-    width: 50px;
-    height: 50px;
     color: white;
     font-size: 30pt;
+    transition: transform 0.15s linear;
 }
 
 .btn-add-friend:hover{
     cursor: pointer;
+    transform: rotateZ(45deg);
 }
 
 
@@ -159,9 +183,54 @@
 
 #chat-header{
     display: flex;
+    background-color: #fff;
 }
 
 #chat-header div:first-child{
     margin-left: auto;
     margin-right: auto;
 }
+
+
+
+
+
+// -----------------------------------
+// modal
+// -----------------------------------
+
+.ant-modal-body{
+    font-size: 1.4rem;
+
+    input{
+        box-sizing: border-box !important;
+
+        width: 100%;
+        border-radius: 20px;
+        border: none;
+        border-bottom: 2px solid #08f;
+        font-size: 1.2rem;
+        padding: 6px 10px;
+    }
+}
+
+.ant-modal-footer{
+
+    button{
+        padding: 10px;
+        border: none;
+        border-bottom: 2px solid #08f;
+        background-color: #fff;
+        cursor: pointer;
+    }
+}
+
+//// -----------------------------------
+// end modal
+// -----------------------------------
+
+
+
+
+
+

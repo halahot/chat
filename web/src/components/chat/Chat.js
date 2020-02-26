@@ -159,6 +159,9 @@ class Chat extends React.Component{
                 .filter(element => {
                   return (element.sender_id === this.state.current_user.id && element.to_id === account.id) || (element.sender_id === account.id && element.to_id === this.state.current_user.id); 
                 })
+                .sort((a, b) => {
+                  return (new Date(a.date) - new Date(b.date)); 
+                })
                 .map(message => {
                   return (
                     <div key={i++} className={message.to_id === account.id ? "not-my-message": "my-message"}>
@@ -181,7 +184,7 @@ class Chat extends React.Component{
               </div>
 
               <div id="chat-form">
-                <input type="text" name="message" onChange={this.handleChange} value={this.state.message}/> <button onClick={this.handleSend}>Send</button>
+                <input type="text" placeholder="message" name="message" onChange={this.handleChange} value={this.state.message}/> <button onClick={this.handleSend}>Send</button>
               </div>
             </div>
           </div>
