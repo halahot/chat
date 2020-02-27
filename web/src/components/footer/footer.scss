@@ -1,10 +1,11 @@
 #footer{
-    height: 55px;
-    margin-top: 0px;
-    background-color: #788aad;
-    border-top: 1px solid black;
+    padding: 20px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #878787;
+    border-top: 1px solid rgb(177, 177, 177);
     color: white;
-    padding-left: 10px;
-    padding-top: 30px;
     text-align: center;
 }
