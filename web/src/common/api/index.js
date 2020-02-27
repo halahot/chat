@@ -4,7 +4,7 @@ import * as actions from '../redux/actions';
 const io = require("socket.io-client");
 
 
-const ip = "84.201.134.106"
+const ip = "84.201.173.168"
 const Sport = 9099;
 
 let socket;
