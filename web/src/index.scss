@@ -1,22 +1,27 @@
 
-
 body, html{
     padding: 0px;
     margin: 0px;
     font-family: 'Roboto', Courier, monospace;
     font-size: 16px;
-    overflow: hidden;
+    overflow-x: hidden;
     height: 100%;
 }
 
 #root{
     margin-bottom: 0px;
+    height: calc(100% - 100px);
+    box-sizing: border-box;
+}
+
+#root > div{
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .content{
     margin: 0px;
     padding: 0px;
-    max-width: 100wv;
 }
 
 .my-btn{

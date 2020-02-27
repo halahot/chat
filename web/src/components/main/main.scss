@@ -1,9 +1,16 @@
 #main{
-    margin-top: 95px;
-    // min-height: calc(100vh - 182px);
-    height: calc(100vh - 60px - 95px);
+    box-sizing: border-box;
+    height: 100%;
     border-top: 1px solid black;
-
+    margin-top: 95px;
     background: linear-gradient(50deg , transparent 0% 30%, #f80 30% 70%, transparent 70%), 
-    linear-gradient(295deg , transparent 0% 30%, #08f 30% 80%, transparent 80%) 150px 0 no-repeat;
+    linear-gradient(290deg , transparent 0% 30%, #08f 30% 80%, transparent 80%) 150px 0 no-repeat;
+
+    @media screen and (max-height: 615px){
+            height: calc(100% + 100px);
+    }
+
+    @media screen and (max-height: 415px){
+        height: calc(100% + 180px);
+}
 }
