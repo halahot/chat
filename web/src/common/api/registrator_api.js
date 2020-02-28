@@ -4,7 +4,7 @@ import * as actions from '../redux/actions';
 const axios = require("axios");
 const bcrypt = require("bcryptjs");
 
-const ip = "84.201.173.168"
+const ip = "84.201.130.48"
 
 const Rport = 9025;
 const adress = `http://${ip}:${Rport}`;
